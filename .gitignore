@@ -1,0 +1,11 @@
+*venv/
+*node_modules/
+*__pycache__
+*.pyc
+*.env
+*.vscode
+*.sqlite3
+*.ipynb
+*.xlsx
+*.csv
+*.json
