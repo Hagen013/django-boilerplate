@@ -39,6 +39,9 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    "users",
+    "tasks",
+    "api"
 ]
 
 LOCAL_APPS = [
