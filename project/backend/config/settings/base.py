@@ -5,6 +5,9 @@ Basic settings
 import os
 import environ
 
+env = environ.Env()
+env.read_env()
+
 
 # ROUTING
 # ------------------------------------------------------------------------------
@@ -39,6 +42,7 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    "rest_framework"
 ]
 
 LOCAL_APPS = [
@@ -71,28 +75,17 @@ MIDDLEWARE = [
 # ------------------------------------------------------------------------------
 TEMPLATES = [
     {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
-        "APP_DIRS": True,
-        "OPTIONS": {
-            "context_processors": [
-                "django.template.context_processors.debug",
-                "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
-                "social_django.context_processors.backends",
-                "social_django.context_processors.login_redirect",
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
             ],
         },
-    },
-    {
-        "BACKEND": 'django.template.backends.jinja2.Jinja2",
-        "DIRS": [
-            "../frontend/templates/",
-        ],
-        "OPTIONS": {
-            "environment": "config.jinja2env.environment",
-        }
     },
 ]
 # ------------------------------------------------------------------------------
@@ -135,6 +128,20 @@ USE_L10N = True
 USE_TZ = True
 # ------------------------------------------------------------------------------
 # INTERNATIONALIZATION END
+
+
+# REST_FRAMEWORK START
+# ------------------------------------------------------------------------------
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": (
+        "rest_framework.permissions.IsAuthenticated",
+    ),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
+    ),
+}
+# ------------------------------------------------------------------------------
+# REST_FRAMEWORK END
 
 
 # STATIC FILES START
