@@ -4,7 +4,7 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "dev": "../server/manage.py runserver | webpack-dev-server --mode development",
+    "dev": "cross-env NODE_ENV=development ../server/manage.py runserver | webpack-dev-server --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "author": "Hagen013",
@@ -31,14 +31,14 @@
     "babel-core": "^6.26.3",
     "chai": "^4.1.2",
     "css-loader": "^1.0.0",
+    "cross-env": "^5.0.5",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
-    "ts-loader": "^4.5.0",
+    "ts-loader": "^3.1.1",
     "typescript": "^3.0.1",
     "vue-loader": "^14.2.2",
     "vue-template-compiler": "^2.5.17",
-    "webpack": "^4.16.5",
-    "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.5"
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4"
   }
 }

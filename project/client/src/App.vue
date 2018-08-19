@@ -19,7 +19,7 @@ export default class App extends Vue {
 
   constructor() {
     super();
-    this.title = 'My Пидор and CosmosDB Heroes App';
+    this.title = 'My Гной and CosmosDB Heroes App';
   }
 }
 </script>
