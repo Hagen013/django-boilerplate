@@ -19,7 +19,7 @@ ROOT_URLCONF = "config.urls"
 
 # PATHS
 # ------------------------------------------------------------------------------
-ROOT_DIR = environ.Path(__file__) - 4  # (project/backend/config/settings/base.py - 4 = web/)
+ROOT_DIR = environ.Path(__file__) - 4  # (project/server/config/settings/base.py - 4 = web/)
 # ------------------------------------------------------------------------------
 # PATHS END
 
@@ -76,17 +76,26 @@ MIDDLEWARE = [
 # ------------------------------------------------------------------------------
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
+    },
+    {
+        "BACKEND": "django.template.backends.jinja2.Jinja2",
+        "DIRS": [
+            "../client/templates/",
+        ],
+        "OPTIONS": {
+            "environment": "config.jinja2env.environment",
+        }
     },
 ]
 # ------------------------------------------------------------------------------
@@ -161,7 +170,8 @@ JWT_AUTH = {
 # ------------------------------------------------------------------------------
 STATIC_URL = "/static/"
 STATICFILES_DIRS = (
-    str(ROOT_DIR.path("frontend/static")),
+    str(ROOT_DIR.path("client/dist")),
 )
+print(STATICFILES_DIRS)
 # ------------------------------------------------------------------------------
 # STATIC FILES END
