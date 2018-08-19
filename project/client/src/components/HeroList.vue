@@ -40,7 +40,7 @@ export default class HeroList extends Vue {
   heroes: Hero[] = [];
 
   created() {
-    this.getHeroes();
+    //this.getHeroes();
   }
   deleteHero(hero: Hero) {
     return heroService.deleteHero(hero).then(() => {

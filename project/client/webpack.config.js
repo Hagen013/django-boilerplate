@@ -56,12 +56,9 @@ module.exports = {
     historyApiFallback: true,
     noInfo: true,
     overlay: true,
+    publicPath: "/static/js/",
     proxy: {
-      '/api': {
-        target: 'http://localhost:3001',
-        changeOrigin: true,
-        secure: false
-      }
+      "/": "http://localhost:8000"
     }
   },
   performance: {
