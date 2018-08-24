@@ -43,13 +43,15 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    "rest_framework"
+    "rest_framework",
+    "mptt"
 ]
 
 LOCAL_APPS = [
     "users",
     "tasks",
-    "api"
+    "api",
+    "core"
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -172,6 +174,5 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = (
     str(ROOT_DIR.path("client/dist")),
 )
-print(STATICFILES_DIRS)
 # ------------------------------------------------------------------------------
 # STATIC FILES END

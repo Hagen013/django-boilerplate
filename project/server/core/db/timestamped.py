@@ -1,3 +1,6 @@
+from django.db import models
+
+
 class TimeStamped(models.Model):
     """
     Provides created and updated timestamps on models.
