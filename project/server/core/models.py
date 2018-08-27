@@ -44,12 +44,13 @@ class Offer(models.Model):
     )
 
     display_sale = models.BooleanField(
-        verbose_name="display sale"
+        verbose_name="display sale",
         default=True
     )
 
     amount = models.PositiveIntegerField(
-        verbose_name="amount"
+        verbose_name="amount in storage",
+        default=0
     )
 
     @property
@@ -78,5 +79,4 @@ class CategoryPage(MPTTModel, WebPage):
         db_index=True,
         on_delete=models.CASCADE
     )
-
 

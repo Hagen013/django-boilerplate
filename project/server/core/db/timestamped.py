@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class TimeStamped(models.Model):
@@ -9,12 +10,18 @@ class TimeStamped(models.Model):
     class Meta:
         abstract = True
 
-    created = models.DateTimeField(null=True, editable=False)
-    updated = models.DateTimeField(null=True, editable=False)
+    created_at = models.DateTimeField(
+        verbose_name="creation date",
+        auto_now_add=True
+    )
 
-    def save(self, *args, **kwargs):
-        _now = now()
-        self.updated = _now
-        if not self.id:
-            self.created = _now
+    modified_at = models.DateTimeField(
+        verbose_name="last modification date",
+        blank=True
+    )
+
+    def save(self, auto_now=True, *args, **kwargs):
+        if auto_now or self.pk is None:
+            _now = timezone.now()
+            self.modified_at = _now
         super(TimeStamped, self).save(*args, **kwargs)

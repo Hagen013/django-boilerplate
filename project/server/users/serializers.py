@@ -1,4 +1,5 @@
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 from core.serializers import DynamicFieldsModelSerializer
 
@@ -9,6 +10,9 @@ class UserSerializer(DynamicFieldsModelSerializer):
         fields = (
             "id",
             "username",
-            "email"
+            "email",
+            "first_name",
+            "last_name",
+            "create"
         )
 
