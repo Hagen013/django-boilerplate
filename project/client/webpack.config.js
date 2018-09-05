@@ -4,7 +4,11 @@ const webpack = require('webpack');
 
 
 module.exports = {
-  entry: './src/main.ts',
+  entry: {
+    main: './src/main.ts',
+    loginPage: './src/loginPage.ts',
+    registerPage: './src/registerPage.ts',
+  },
   output: {
     path: path.resolve(__dirname, './dist/js'),
     publicPath: '/dist/js/',
