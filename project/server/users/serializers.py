@@ -13,6 +13,5 @@ class UserSerializer(DynamicFieldsModelSerializer):
             "email",
             "first_name",
             "last_name",
-            "create"
         )
 

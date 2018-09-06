@@ -6,5 +6,5 @@ from .views import UserListAPIView
 app_name = "api"
 
 urlpatterns = [
-    path('', UserListAPIView.as_view(), name='list')
+    path('', UserListAPIView.as_view(), name='list'),
 ]

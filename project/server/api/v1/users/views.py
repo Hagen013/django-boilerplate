@@ -12,3 +12,17 @@ class UserListAPIView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     
+
+class UserAPIView(APIView):
+
+    def get(self, request, pk):
+        return Response({
+        })
+
+    def put(self, request, pk):
+        return Response({
+        })
+
+    def delete(self, request, pk):
+        return Response({
+        })

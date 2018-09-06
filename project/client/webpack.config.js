@@ -6,8 +6,8 @@ const webpack = require('webpack');
 module.exports = {
   entry: {
     main: './src/main.ts',
-    loginPage: './src/loginPage.ts',
-    registerPage: './src/registerPage.ts',
+    loginPage: './src/loginPage.js',
+    registerPage: './src/registerPage.js',
   },
   output: {
     path: path.resolve(__dirname, './dist/js'),
@@ -80,6 +80,12 @@ module.exports = {
     proxy: {
       "/": "http://localhost:8000"
     }
+  },
+  externals: {
+      // global app config object
+      config: JSON.stringify({
+          apiUrl: '/api/v0'
+      })
   },
   performance: {
     hints: false
