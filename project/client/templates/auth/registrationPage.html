@@ -1,27 +1,35 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form
-    id="register-form"
-    @submit
-    action="/u/register/"
-    method="post"
-    novalidate="true"
->
-    <h1>Регистрация</h1>
-    <div class="input-box">
-        <input class="input">
-    </div>
-    <div class="input-box">
-        <input class="input">
-    </div>
-    <input
-        type="submit"
-        value="Отправить"
+<div class="loginPage">
+    <div
+        id="login-form"
+        class="form registerPage__form"
     >
-</form>
+        <div class="inputBox form__inputBox">
+            <el-input placeholder="Почта">
+            </el-input>
+        </div>
+        <div class="inputBox form__inputBox">
+            <el-input placeholder="Пароль">
+            </el-input>
+        </div>
+        <div class="inputBox form__inputBox">
+                <el-input placeholder="Повторите пароль">
+                </el-input>
+            </div>
+        <div class="form__controls">
+            <el-button
+                class="form__button"
+                type="primary"
+            >
+                Зарегестрироваться
+            </el-button>
+        </div>
+    </div>
+</div>
 {% endblock content %}
 
 {% block script %}
-    <script src="{{ static('js/registerPage.js') }}"></script>
+    <script src="{{ static('js/loginPage.js') }}"></script>
 {% endblock script %}	

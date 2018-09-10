@@ -1,43 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-<el-row :gutter="20">
-  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-</el-row>
-
-
-<el-row :gutter="20">
-    <el-col :span="12">
-        <div class="grid-content bg-purple-dark">
+<div class="registerPage">
+    <div
+        id="login-form"
+        class="form loginPage__form"
+    >
+        <div class="inputBox form__inputBox">
+            <el-input placeholder="Логин">
+            </el-input>
         </div>
-    </el-col>
-    <el-col :span="12">
-        <div class="grid-content bg-purple">
-            <div
-                id="login-form"
-                class="form"
+        <div class="inputBox form__inputBox">
+            <el-input placeholder="Пароль">
+            </el-input>
+        </div>
+        <div class="form__controls">
+            <el-button
+                class="form__button"
+                type="primary"
             >
-                <el-input placeholder="Логин">
-                </el-input>
-                <el-input placeholder="Пароль">
-                </el-input>
-                <el-button
-                    type="primary"
-                >
-                    Войти
-                </el-button>
-            </div>
+                Войти
+            </el-button>
         </div>
-    </el-col>
-    <el-col :span="12">
-        <div class="grid-content bg-purple-light">
-        </div>
-    </el-col>
-</el-row>
-
+    </div>
+</div>
 {% endblock content %}
 
 {% block script %}
