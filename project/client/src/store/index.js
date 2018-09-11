@@ -4,7 +4,7 @@ import { alert } from './alert.module';
 import { authentication } from './authentication.module';
 
 
-export const store = new Vuex.Store({
+export default new Vuex.Store({
     modules: {
         alert,
         authentication,

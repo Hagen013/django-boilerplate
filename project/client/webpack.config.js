@@ -5,6 +5,7 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: {
+    admin: './src/admin.js',
     main: './src/main.ts',
     loginPage: './src/loginPage.js',
     registerPage: './src/registerPage.js',

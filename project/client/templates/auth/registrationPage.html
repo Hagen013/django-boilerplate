@@ -1,27 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="loginPage">
+<div class="registerPage">
     <div
-        id="login-form"
+        id="register-form"
         class="form registerPage__form"
     >
         <div class="inputBox form__inputBox">
-            <el-input placeholder="Почта">
+            <el-input placeholder="Почта"
+            >
             </el-input>
         </div>
         <div class="inputBox form__inputBox">
-            <el-input placeholder="Пароль">
+            <el-input placeholder="Пароль"
+            >
             </el-input>
         </div>
         <div class="inputBox form__inputBox">
-                <el-input placeholder="Повторите пароль">
+                <el-input placeholder="Повторите пароль"
+                >
                 </el-input>
             </div>
         <div class="form__controls">
             <el-button
                 class="form__button"
                 type="primary"
+                @click="submit"
             >
                 Зарегестрироваться
             </el-button>
@@ -31,5 +35,5 @@
 {% endblock content %}
 
 {% block script %}
-    <script src="{{ static('js/loginPage.js') }}"></script>
+    <script src="{{ static('js/registerPage.js') }}"></script>
 {% endblock script %}	
