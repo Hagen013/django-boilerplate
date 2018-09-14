@@ -5,12 +5,11 @@
 
 <script>
 export default {
-    name: 'home',
+    name: 'navbar',
     components: {
     },
 };
 </script>
-
 
 <style lang="scss">
 </style>

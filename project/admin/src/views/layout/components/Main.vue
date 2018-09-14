@@ -5,12 +5,11 @@
 
 <script>
 export default {
-    name: 'home',
+    name: 'main',
     components: {
     },
 };
 </script>
-
 
 <style lang="scss">
 </style>
