@@ -1,6 +1,18 @@
 <template>
     <div>
-        LOGIN
+        <el-form>
+            <el-form-item>
+                <el-input>
+                </el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-input>
+                </el-input>
+            </el-form-item>
+            <el-button>
+                Войти
+            </el-button>
+        </el-form>
     </div>
 </template>
 
@@ -9,6 +21,11 @@ export default {
     name: 'login',
     components: {
     },
+    methods: {
+        handleLogin() {
+
+        }
+    }
 };
 </script>
 
