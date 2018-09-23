@@ -26,3 +26,5 @@ class UserAPIView(APIView):
     def delete(self, request, pk):
         return Response({
         })
+
+

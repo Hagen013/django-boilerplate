@@ -19,7 +19,7 @@ ROOT_URLCONF = "config.urls"
 
 # PATHS
 # ------------------------------------------------------------------------------
-ROOT_DIR = environ.Path(__file__) - 4  # (project/server/config/settings/base.py - 4 = web/)
+ROOT_DIR = environ.Path(__file__) - 4  # (project/server/config/settings/base.py - 4 = project/)
 # ------------------------------------------------------------------------------
 # PATHS END
 
