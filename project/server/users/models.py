@@ -1,5 +1,10 @@
+from datetime import datetime, timedelta
+
+import jwt
+
 from django.db import models
 from django.utils import timezone
+from django.conf import settings
 from django.contrib.auth.models import (
     AbstractBaseUser, PermissionsMixin
 )
@@ -14,19 +19,10 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStamped):
     An abstract base class implementing a fully featured User model with
     admin-compliant permissions.
     """
-    # USER_TYPE_CHOICES = (
-    #     (1, 'client'),
-    #     (2, 'manager'),
-    #     (3, 'operator'),
-    #     (4, 'admin'),
-    # )
-
-    # user_type = models.PositiveSmallIntegerField(
-    #     choices=USER_TYPE_CHOICES
-    # )
 
     email = models.EmailField(
         max_length=64,
+        db_index=True,
         unique=True,
         blank=True
     )
@@ -61,7 +57,28 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStamped):
  
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
+
+    @property
+    def token(self):
+        return self._generate_jwt_token()
+
+    def _generate_jwt_token(self):
+        dt = datetime.now() + timedelta(days=60)
+        payload = {
+            "id": self.pk,
+            "exp": int(dt.strftime('%s'))
+        }
+        token = jwt.encode(
+            payload,
+            settings.SECRET_KEY,
+            algorithm="HS256"
+        )
+        return token.decode("utf-8")
+
+    def __str__(self):
+        return self.email
  
     def save(self, *args, **kwargs):
         super(User, self).save(*args, **kwargs)
         return self
+
