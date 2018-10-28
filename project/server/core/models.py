@@ -1,22 +1,31 @@
 from django.db import models
+from django.contrib.postgres.fields import JSONField
+
 from mptt.models import MPTTModel, TreeForeignKey
 from mptt.managers import TreeManager
 
-from .db import Displayable, Indexable, Describable
+from .db import (Displayable,
+                 Indexable,
+                 Describable,
+                 TimeStamped,
+                 Sortable,
+                 Named)
+
 from .db.fields import PriceField
 
 
 class WebPage(
         Displayable,
         Indexable,
-        Describable
+        Describable,
+        TimeStamped
     ):
     
     class Meta:
         abstract = True
 
 
-class Offer(models.Model):
+class Offer(Named, Sortable):
 
     price = PriceField()
 
@@ -25,7 +34,8 @@ class Offer(models.Model):
     code = models.CharField(
         verbose_name="vendor code",
         max_length=128,
-        db_index=True
+        db_index=True,
+        unique=True
     )
 
     is_in_stock = models.BooleanField(
@@ -48,10 +58,21 @@ class Offer(models.Model):
         default=True
     )
 
+    display_in_selections = models.BooleanField(
+        default=False
+    )
+
     amount = models.PositiveIntegerField(
         verbose_name="amount in storage",
         default=0
     )
+    
+    attributes = JSONField(
+        blank=True
+    )
+
+    class Meta:
+        abstract = True
 
     @property
     def discount_amount(self):
@@ -61,22 +82,39 @@ class Offer(models.Model):
             return 0
 
 
-class OfferPage(WebPage):
+class AbstractOfferPage(Offer, WebPage):
+
+    category_relation_class = None
+
+    def add_category(self, category):
+        return None
+
+    def remove_category(self, category):
+        return None
+
+    def contains_category(self, category):
+        return None
 
     class Meta:
         abstract = True
 
 
-class CategoryPage(MPTTModel, WebPage):
-
-    class Meta:
-        abstract = True
+class Category(MPTTModel, Named, Sortable):
 
     parent = TreeForeignKey(
         "self",
         verbose_name="parent",
+        blank=True,
         null=True,
         db_index=True,
         on_delete=models.CASCADE
     )
 
+    class Meta:
+        abstract = True
+
+
+class AbstractCategoryPage(Category, WebPage):
+
+    class Meta:
+        abstract = True

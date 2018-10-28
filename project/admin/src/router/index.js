@@ -30,46 +30,11 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/dashboard',
     name: 'Dashboard',
-    hidden: true,
     children: [{
       path: 'dashboard',
-      component: () => import('@/views/dashboard/index')
+      component: () => import('@/views/dashboard/index'),
+      meta: { title: 'Главная', icon: 'home' }
     }]
-  },
-
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      }
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
   },
 
   {
@@ -78,78 +43,83 @@ export const constantRouterMap = [
     children: [
       {
         path: '',
-        name: 'OrderList',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Заказы', icon: 'form' }
+        name: 'Orders',
+        component: () => import('@/views/orders/index'),
+        meta: { title: 'Заказы', icon: 'shopping-cart' }
       }
     ]
   },
 
   {
-    path: '/nested',
+    path: '/shop',
     component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: 'Nested',
-      icon: 'nested'
-    },
+    redirect: '/shop/offers',
+    name: 'Каталог',
+    meta: { title: 'Каталог', icon: 'dashboard' },
     children: [
       {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
+        path: 'offers',
+        name: 'Offers',
+        component: () => import('@/views/shop/offers/index'),
+        meta: { title: 'Товары' }
       },
       {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        meta: { title: 'menu2' }
+        path: 'categories',
+        name: 'Categories',
+        component: () => import('@/views/shop/categories/index'),
+        meta: { title: 'Категории' }
+      },
+      {
+        path: 'products',
+        name: 'Products',
+        component: () => import('@/views/shop/products/index'),
+        meta: { title: 'Модели' }
+      },
+      {
+        path: 'warehouse',
+        name: 'Warehouse',
+        component: () => import('@/views/shop/warehouse/index'),
+        meta: { title: 'Остатки' }
+      },
+      {
+        path: 'categories/create',
+        name: 'Category',
+        hidden: true,
+        component: () => import('@/views/forms/category'),
+        meta: { title: 'Создать категорию' }
+      },
+      {
+        path: 'categories/:id',
+        name: 'Category',
+        hidden: true,
+        component: () => import('@/views/forms/category'),
+        meta: { title: 'Редактирование категории' }
+      },
+    ]
+  },
+
+  {
+    path: '/images',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        name: 'Images',
+        component: () => import('@/views/images/index'),
+        meta: { title: 'Изображения', icon: 'insert_photo' }
       }
     ]
   },
 
   {
-    path: 'external-link',
+    path: '/users',
     component: Layout,
     children: [
       {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
+        path: '',
+        name: 'Users',
+        component: () => import('@/views/users/index'),
+        meta: { title: 'Пользователи', icon: 'user' }
       }
     ]
   },

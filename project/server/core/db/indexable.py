@@ -8,13 +8,13 @@ class Indexable(models.Model):
 
     _title = models.CharField(
         blank=True,
-        verbose_name='meta-tag title',
+        verbose_name='H1 title',
         max_length=512
     )
 
     _meta_title = models.CharField(
         blank=True,
-        verbose_name='meta-tag ',
+        verbose_name='meta-tag title',
         max_length=512
     )
 
@@ -38,6 +38,13 @@ class Indexable(models.Model):
 
     def get_meta_description(self):
         return self._meta_description
+
+    def get_title(self):
+        return self._title
+
+    @property
+    def title(self):
+        return self._title
 
     @property
     def meta_title(self):

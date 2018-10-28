@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.validators import RegexValidator
+from django.core.validators import validate_slug
 
 
 class DisplayableURLField(models.CharField):
@@ -10,9 +10,6 @@ class DisplayableURLField(models.CharField):
         kwargs["editable"] = False
         kwargs["unique"] = True
         kwargs["validators"] = [
-                RegexValidator(
-                    regex=r'^(($)|(([-_\da-z]+/)+$))',
-                    message='slug valid error',
-                )
+                validate_slug
             ]
         super(DisplayableURLField, self).__init__(*args, **kwargs)
