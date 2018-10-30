@@ -19,7 +19,7 @@ ROOT_URLCONF = "config.urls"
 
 # PATHS
 # ------------------------------------------------------------------------------
-ROOT_DIR = environ.Path(__file__) - 4  # (project/server/config/settings/base.py - 4 = web/)
+ROOT_DIR = environ.Path(__file__) - 4  # (project/server/config/settings/base.py - 4 = project/)
 # ------------------------------------------------------------------------------
 # PATHS END
 
@@ -43,15 +43,20 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    "django_extensions",
     "rest_framework",
-    "mptt"
+    "django_filters",
+    "corsheaders",
+    "mptt",
+    "imagekit"
 ]
 
 LOCAL_APPS = [
+    "core",
     "users",
+    "shop",
     "tasks",
-    "api",
-    "core"
+    "api"
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -62,6 +67,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -72,7 +78,6 @@ MIDDLEWARE = [
 ]
 # ------------------------------------------------------------------------------
 # APPLICATIONS CONFIGURATION END
-
 
 # TEMPLATES CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -145,12 +150,16 @@ USE_TZ = True
 # REST_FRAMEWORK START
 # ------------------------------------------------------------------------------
 REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": (
-        "rest_framework.permissions.IsAuthenticated",
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
     ),
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
     ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100
 }
 # ------------------------------------------------------------------------------
 # REST_FRAMEWORK END
@@ -162,11 +171,19 @@ JWT_AUTH = {
     "JWT_VERIFY": True,
     "JWT_VERIFY_EXPIRATION": True,
     "JWT_EXPIRATION_DELTA": datetime.timedelta(seconds=3000),
-    "JWT_AUTH_HEADER_PREFIX": "Bearer",
+    "JWT_AUTH_HEADER_PREFIX": "x-token",
+    'JWT_AUTH_COOKIE': "x-token",
 }
 # ------------------------------------------------------------------------------
 # JWT END
 
+# AUTHENTICATION START
+# ------------------------------------------------------------------------------
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
+# AUTHENTICATION END
+# ------------------------------------------------------------------------------
 
 # CUSTOM USER MODEL START
 # ------------------------------------------------------------------------------
@@ -183,3 +200,30 @@ STATICFILES_DIRS = (
 )
 # ------------------------------------------------------------------------------
 # STATIC FILES END
+
+
+# RESPONSE HEADERS START
+# ------------------------------------------------------------------------------
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+)
+
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'x-token'
+)
+# ------------------------------------------------------------------------------
+# RESPONSE HEADERS END

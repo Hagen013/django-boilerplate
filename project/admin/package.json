@@ -12,7 +12,10 @@
     "axios": "^0.18.0",
     "element-ui": "^2.4.7",
     "js-cookie": "^2.2.0",
+    "normalize.css": "^8.0.0",
+    "nprogress": "^0.2.0",
     "register-service-worker": "^1.0.0",
+    "svg-sprite-loader": "^4.1.1",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
