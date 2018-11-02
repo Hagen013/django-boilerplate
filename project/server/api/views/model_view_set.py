@@ -1,6 +1,7 @@
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
 
+from rest_framework.settings import api_settings
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
@@ -18,6 +19,8 @@ class ModelViewSet(viewsets.ViewSet):
     filter_fields = ()
     search_fields = ()
     ordering_fields = ()
+
+    filter_backends = api_settings.DEFAULT_FILTER_BACKENDS
 
     def get_instance(self, pk):
         try:
@@ -60,6 +63,7 @@ class ModelViewSet(viewsets.ViewSet):
                 status=status.HTTP_201_CREATED
             )
         return Response(
+            serializer.errors,
             status=status.HTTP_400_BAD_REQUEST
         )
 
@@ -80,10 +84,11 @@ class ModelViewSet(viewsets.ViewSet):
         if serializer.is_valid():
             serializer.save()
             return Response(
-
                 status=status.HTTP_200_OK
             )
         return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST
         )
 
     def delete(self, request, pk):

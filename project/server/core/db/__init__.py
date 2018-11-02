@@ -4,3 +4,4 @@ from .describable import Describable
 from .timestamped import TimeStamped
 from .sortable import Sortable
 from .named import Named
+from .image import Image

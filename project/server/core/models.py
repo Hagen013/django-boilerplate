@@ -3,12 +3,14 @@ from django.contrib.postgres.fields import JSONField
 
 from mptt.models import MPTTModel, TreeForeignKey
 from mptt.managers import TreeManager
+from transliterate import translit
 
 from .db import (Displayable,
                  Indexable,
                  Describable,
                  TimeStamped,
                  Sortable,
+                 Image,
                  Named)
 
 from .db.fields import PriceField
@@ -95,6 +97,12 @@ class AbstractOfferPage(Offer, WebPage):
     def contains_category(self, category):
         return None
 
+    def __repr__(self):
+        return 'OfferPage: %s' % self.name
+
+    def __str__(self):
+        return '%s' % self.name
+
     class Meta:
         abstract = True
 
@@ -115,6 +123,27 @@ class Category(MPTTModel, Named, Sortable):
 
 
 class AbstractCategoryPage(Category, WebPage):
+
+    def __repr__(self):
+        return 'CategoryPage: %s' % self.name
+
+    def __str__(self):
+        return '%s' % self.name
+
+    class Meta:
+        abstract = True
+
+
+class AbstractOfferImage(Image, Sortable, Describable, TimeStamped):
+
+    offer = None
+
+    upload_image_to = 'images/'
+    image_key_attribute = 'name'
+
+    @property
+    def name(self):
+        return translit(self.offer.name, 'ru', reversed=True).replace(' ', '-')
 
     class Meta:
         abstract = True

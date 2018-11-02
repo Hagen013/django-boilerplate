@@ -6,7 +6,8 @@ class Named(models.Model):
     name = models.CharField(
         max_length=1024,
         verbose_name="name",
-        db_index=True
+        db_index=True,
+        blank=True
     )
 
     class Meta:

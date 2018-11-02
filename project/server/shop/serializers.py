@@ -2,10 +2,13 @@ from rest_framework import serializers
 
 from core.serializers import DynamicFieldsModelSerializer
 
-from .models import CategoryPage, OfferPage
+from .models import CategoryPage, OfferPage, OfferImage
 
 
 class BaseCategorySerializer(DynamicFieldsModelSerializer):
+
+    url = serializers.CharField(max_length=2048)
+    slug = serializers.CharField(max_length=2048)
 
     class Meta:
         model = CategoryPage
@@ -49,19 +52,19 @@ class OfferSerializer(DynamicFieldsModelSerializer):
 
     class Meta:
         model = OfferPage
-        fields = (
-            'id',
-            'name',
-            'url',
-            'slug',
-            'is_published',
-            'is_bestseller'
-        )
+        fields = '__all__'
         read_only_fields = (
             'id',
         )
 
 
-class ImageSerializer(serializers.ModelSerializer):
-    pass
+class OfferImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = OfferImage
+        fields = '__all__'
+        read_only_fields = (
+            'id',
+            'thumbnail',
+        )
 

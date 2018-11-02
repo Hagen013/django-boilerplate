@@ -1,7 +1,8 @@
 from django.db import models
 
 from core.models import (AbstractCategoryPage,
-                        AbstractOfferPage,)
+                        AbstractOfferPage,
+                        AbstractOfferImage)
 
 
 class Product(models.Model):
@@ -55,3 +56,15 @@ class OfferPage(AbstractOfferPage):
     class Meta:
         abstract = False
 
+
+class OfferImage(AbstractOfferImage):
+
+    offer = models.ForeignKey(
+        "OfferPage",
+        on_delete=models.CASCADE,
+        related_name="images",
+        null=False
+    )
+
+    class Meta:
+        abstract = False
