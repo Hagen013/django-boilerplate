@@ -1,5 +1,5 @@
 <template>
-    <div class="form-container">
+    <div class="app-container">
         <h1>Товары</h1>
     </div>
 </template>

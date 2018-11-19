@@ -60,6 +60,8 @@ class OfferSerializer(DynamicFieldsModelSerializer):
 
 class OfferImageSerializer(serializers.ModelSerializer):
 
+    thumbnail = serializers.ImageField(use_url=True, read_only=True)
+
     class Meta:
         model = OfferImage
         fields = '__all__'
@@ -67,4 +69,3 @@ class OfferImageSerializer(serializers.ModelSerializer):
             'id',
             'thumbnail',
         )
-

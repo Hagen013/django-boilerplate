@@ -2,8 +2,8 @@ import request from '@/utils/request'
 
 const shop = {
     categories: {
-        list() {
-            return request.get('/categories')
+        list(params={}) {
+            return request.get('/categories/', {params})
         },
         create() {
             return null

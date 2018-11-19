@@ -4,6 +4,25 @@
         <h1>Категории</h1>
         <div class="table">
             <div class="table__controls">
+                <div class="table__buttons">
+                    <el-button type="primary"
+                        @click="handleCreateClick"
+                    >
+                        Создать
+                    </el-button>
+                </div>
+                <div class="table__filters">
+                    <div class="filter-field"
+                        v-for="item in tableFilters"
+                        :key=item.field
+                    >
+                        <el-input v-if="item.type==='string'"
+                            :placeholder="item.label"
+                            v-model="item.value"
+                        >
+                        </el-input>
+                    </div>
+                </div>
             </div>
             <div class="table__content">
                     <tr class="table__header">
@@ -36,33 +55,78 @@
 </template>
 
 <script>
+import debounce from 'debounce'
+
 import shopApi from '@/api/shop'
+
 
 export default {
     name: 'Categories',
     data: () => ({
         loading: true,
         tableItems: [],
+        routes: {
+            create: '/shop/categories/create',
+            retrieve: '/shop/categories/',
+        },
         tableProps: [
             {
                 value: 'id',
-                label: 'ID'
+                label: 'ID',
+                sortable: true
             },
             {
                 value: 'name',
-                label: 'Наименование'
+                label: 'Наименование',
+                sortable: false
             },
             {
                 value: 'url',
-                label: 'URL'
+                label: 'URL',
+                sortable: false
             },
             {
                 value: 'level',
-                label: 'Глубина'
+                label: 'Глубина',
+                sortable: true
             }
-        ]
+        ],
+        tableFilters: [
+            {
+                lookupField: 'search',
+                label: 'наименование',
+                type: 'string',
+                value: ''
+            },
+            {
+                lookupField: 'is_published',
+                label: 'опубликован',
+                type: 'boolean',
+                value: false
+            },
+            {
+                lookupField: 'parent',
+                label: 'ID родительской категории',
+                type: 'number',
+            }
+        ],
+        showFilters: false
     }),
     computed: {
+        queryParams() {
+            let params = {};
+            for (let i=0; i<this.tableFilters.length; i++) {
+                let field = this.tableFilters[i].lookupField;
+                let value = this.tableFilters[i].value;
+                let filterType = this.tableFilters[i].type;
+                if (filterType === 'string') {
+                    if (value !== '') {
+                        params[field] = value;
+                    }
+                }
+            }
+            return params
+        }
     },
     created() {
         this.initialize();
@@ -74,7 +138,7 @@ export default {
             this.getList();
         },
         getList() {
-            shopApi.categories.list().then(
+            shopApi.categories.list(this.queryParams).then(
                 response => {
                     this.handleSuccessfulListResponse(response);
                 },
@@ -94,62 +158,25 @@ export default {
         },
         handleErrorListResponse(response) {
             this.loading = false;
+        },
+        handleCreateClick() {
+            this.$router.push({path: this.routes.create})
         }
         // Response handlers end
+    },
+    watch: {
+        queryParams: {
+            handler: debounce(function() {
+                this.getList();
+            }, 300),
+            deep: true
+        }
     }
 }
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-    tbody {
-        width: 100%;
-    }
-    .table__content {
-        display: table;
-        width: 100%;
-    }
-    .table__row {
-        width: 100%;
-    }
-    .table__head {
-        height: 48px;
-    }
-    .table__head-container {
-        display: flex;
-        align-items: center;
-        padding: 0px 16px;
-        height: 100%;
-        width: 100%;
-    }
-    .table__cell {
-        height: 48px;
-        border-top-color: rgba(0,0,0,.12);
-        border-top: 1px solid rgba(0,0,0,.12);
-    }
-    .table__cell-container {
-        display: flex;
-        align-items: center;
-        padding: 0px 16px;
-        height: 100%;
-        width: 100%;
-    }
-    .table__row {
-        transition: .3s cubic-bezier(.4,0,.2,1);
-        transition-property: background-color,font-weight;
-        will-change: background-color,font-weight;
-        cursor: pointer;
-        &:hover {
-            background-color: rgba(0,0,0,.08);
-        }
-
-    }
-    .text_left {
-        text-align: left;
-    }
-    .text_center {
-        text-align: center;
-    }
-    .text_right {
-        text-align: right;
+    .filter-field {
+        max-width: 300px;
     }
 </style>
